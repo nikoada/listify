@@ -20,6 +20,7 @@ recognition.lang = 'en-US'
 recognition.addEventListener('result', event => {
   const transcript = event.results[0][0].transcript
   console.log(transcript)
+  
   // check if the voice input has ended
   if (event.results[0].isFinal && oElements[transcript]) {
     document.getElementById("mainContainer").appendChild(oElements[transcript])
@@ -35,12 +36,12 @@ recognition.addEventListener('result', event => {
 
 });
 
+recognition.addEventListener('end', recognition.start)
+recognition.start()
+
 let addClass = className => {
-  let divs = document.getElementsByTagName('div')
+let divs = document.getElementsByTagName('div')
     for (let i = 0; i < divs.length; i++) {
       divs[i].setAttribute( 'class', className)
     }
 }
-
-recognition.addEventListener('end', recognition.start)
-recognition.start()
