@@ -6,10 +6,12 @@ export class Item {
     createDivElement() {
         let element = document.createElement("div")
         let cancelButton = document.createElement("button")
+        let imageElement = document.createElement("img")
+        imageElement.setAttribute("src", `images/${this.name}.jpg`)
         cancelButton.innerHTML = "X"
         cancelButton.style = "float: right"
         element.id = `id${this.name}`
-        element.innerHTML = this.name
+        // element.innerHTML = this.name
 
         cancelButton.onclick = () => {
             let element = document.getElementById("id" + this.name)
@@ -22,6 +24,7 @@ export class Item {
         }
                 
         element.appendChild(cancelButton)
+        element.appendChild(imageElement)
         return element
     }
 }

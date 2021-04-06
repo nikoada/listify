@@ -5,5 +5,7 @@ export const itemsList = [
     "mango",
     "cheese",
     "peach",
-    "fish"
+    "fish",
+    "coffee",
+    "banana"
 ]

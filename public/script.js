@@ -5,8 +5,7 @@ import { itemsList } from "./itemsList.js"
 let oElements = {}
 
 itemsList.forEach(item => {
-  let nameCapitalized = item.charAt(0).toUpperCase() + item.slice(1)
-  oElements[item] = new Item(nameCapitalized).createDivElement()
+  oElements[item] = new Item(item).createDivElement()
 })
 
 window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
