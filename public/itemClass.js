@@ -15,7 +15,12 @@ export class Item {
             let element = document.getElementById("id" + this.name)
             element.parentNode.removeChild(element)
         }
-        
+
+        element.onclick = () => {
+            let element = document.getElementById("id" + this.name)
+            element.style = "background-color: #A1C935"
+        }
+                
         element.appendChild(cancelButton)
         return element
     }
