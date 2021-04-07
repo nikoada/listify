@@ -21,6 +21,8 @@ export class Item {
         element.onclick = () => {
             let element = document.getElementById("id" + this.name)
             element.style = "background-color: #A1C935"
+            element.parentNode.removeChild(element)
+            document.getElementById("mainContainer").appendChild(element)
         }
                 
         element.appendChild(cancelButton)
