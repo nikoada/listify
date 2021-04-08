@@ -29,6 +29,20 @@ startButton.onmouseup = () => {
   --mouseDown
   console.log('mouseup', mouseDown)
 }
+
+startButton.touchstart = () => {
+  recognition.start()
+  console.log('Ready to receive a command.')
+  ++mouseDown
+  console.log('mousedown', mouseDown)
+}
+startButton.touchend = () => {
+  recognition.abort()
+  console.log('Receiveing of commands has stoped.')
+  --mouseDown
+  console.log('mouseup', mouseDown)
+}
+
 startButton.innerHTML = 'Listen'
 startButton.style = 'width: 100%; Height: 5rem; font-size: 2rem;'
 
