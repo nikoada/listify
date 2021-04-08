@@ -15,6 +15,26 @@ const recognition = new SpeechRecognition()
 recognition.interimResults = true
 recognition.lang = 'en-US'
 
+var mouseDown = 0
+const startButton = document.createElement('button')
+startButton.onmousedown = () => {
+  recognition.start()
+  console.log('Ready to receive a command.')
+  ++mouseDown
+  console.log('mousedown', mouseDown)
+}
+startButton.onmouseup = () => {
+  recognition.abort()
+  console.log('Receiveing of commands has stoped.')
+  --mouseDown
+  console.log('mouseup', mouseDown)
+}
+startButton.innerHTML = 'Listen'
+startButton.style = 'width: 100%; Height: 5rem; font-size: 2rem;'
+
+let container = document.getElementById("mainContainer")
+document.body.insertBefore(startButton, container)
+
 // waiting for speech results
 recognition.addEventListener('result', event => {
   const transcript = event.results[0][0].transcript
@@ -22,7 +42,13 @@ recognition.addEventListener('result', event => {
   
   // check if the voice input has ended
   if (event.results[0].isFinal && oElements[transcript]) {
-    document.getElementById("mainContainer").appendChild(oElements[transcript])
+    if (container.hasChildNodes()) {
+      container.insertBefore(oElements[transcript], container.childNodes[0])
+    } else {
+      container.appendChild(oElements[transcript])
+    }
+
+    
   }
 
   if (transcript === "table") {
@@ -35,8 +61,7 @@ recognition.addEventListener('result', event => {
 
 });
 
-recognition.addEventListener('end', recognition.start)
-recognition.start()
+recognition.addEventListener('end', () => mouseDown ? recognition.start() : null )
 
 let addClass = className => {
 let divs = document.getElementsByTagName('div')
