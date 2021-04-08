@@ -17,7 +17,7 @@ recognition.lang = 'en-US'
 
 var mouseDown = 0
 const startButton = document.createElement('button')
-startButton.onmousedown = () => {
+/* startButton.onmousedown = () => {
   recognition.start()
   console.log('Ready to receive a command.')
   ++mouseDown
@@ -28,19 +28,10 @@ startButton.onmouseup = () => {
   console.log('Receiveing of commands has stoped.')
   --mouseDown
   console.log('mouseup', mouseDown)
-}
+} */
 
-startButton.touchstart = () => {
+startButton.onclick = () => {
   recognition.start()
-  console.log('Ready to receive a command.')
-  ++mouseDown
-  console.log('mousedown', mouseDown)
-}
-startButton.touchend = () => {
-  recognition.abort()
-  console.log('Receiveing of commands has stoped.')
-  --mouseDown
-  console.log('mouseup', mouseDown)
 }
 
 startButton.innerHTML = 'Listen'
