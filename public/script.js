@@ -35,10 +35,10 @@ startButton.onclick = () => {
 }
 
 startButton.innerHTML = 'Listen'
-startButton.style = 'width: 100%; Height: 5rem; font-size: 2rem;'
+startButton.style = 'width: 100%; height: 5rem; font-size: 2rem;'
 
 let container = document.getElementById("mainContainer")
-document.body.insertBefore(startButton, container)
+document.body.appendChild(startButton)
 
 // waiting for speech results
 recognition.addEventListener('result', event => {
