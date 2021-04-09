@@ -6,12 +6,16 @@
 
 html {
     height: 100%;
+    max-width: 800px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    text-align: center;
 }
 
 /* div {
