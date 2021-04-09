@@ -56,13 +56,13 @@ recognition.addEventListener('result', event => {
     
   }
 
-  if (transcript === "table") {
+/*   if (transcript === "table") {
     addClass('table')
   }
 
   if (transcript === "list") {
     addClass('list')
-  }
+  } */
 
 });
 

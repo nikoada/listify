@@ -35,10 +35,6 @@ button {
     border: none;
 }
 
-.list {
-    display: block;
-}
-
-.table {
-    display: inline;
-}
+img {
+    border-radius: 50%;
+  }
