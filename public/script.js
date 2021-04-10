@@ -47,13 +47,15 @@ recognition.addEventListener('result', event => {
   
   // check if the voice input has ended
   if (event.results[0].isFinal && oElements[transcript]) {
+    if (oElements[transcript].style.backgroundColor === 'rgb(161, 201, 53)') {
+      alert('Item is already taken!')
+      return
+    }
     if (container.hasChildNodes()) {
       container.insertBefore(oElements[transcript], container.childNodes[0])
-    } else {
-      container.appendChild(oElements[transcript])
+      return
     }
-
-    
+      container.appendChild(oElements[transcript])
   }
 
 /*   if (transcript === "table") {

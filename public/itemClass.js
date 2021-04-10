@@ -13,12 +13,11 @@ export class Item {
         // element.innerHTML = this.name
 
         cancelButton.onclick = () => {
-            let element = document.getElementById("id" + this.name)
+            element.style.backgroundColor = ''
             element.parentNode.removeChild(element)
         }
 
-        element.onclick = () => {
-            let element = document.getElementById("id" + this.name)
+        imageElement.onclick = () => {
             element.style = "background-color: #A1C935"
             element.parentNode.removeChild(element)
             document.getElementById("mainContainer").appendChild(element)
