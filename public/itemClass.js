@@ -1,30 +1,36 @@
 export class Item {
     constructor (name) {
-        this.name = name
+        this._name = name
+        this._element = document.createElement("div")
     }
 
     createDivElement() {
-        let element = document.createElement("div")
+        this._element.id = `id${this._name}`
+        this._element.appendChild(this.createImageElement(this._element))
+        this._element.appendChild(this.createCancelButton(this._element))
+        return this._element
+    }
+    
+    createCancelButton(elementArg) {
         let cancelButton = document.createElement("button")
-        let imageElement = document.createElement("img")
-        imageElement.setAttribute("src", `images/${this.name}.jpg`)
         cancelButton.innerHTML = "X"
-        element.id = `id${this.name}`
-        // element.innerHTML = this.name
 
         cancelButton.onclick = () => {
-            element.style.backgroundColor = ''
-            element.parentNode.removeChild(element)
+            elementArg.style.backgroundColor = ''
+            elementArg.parentNode.removeChild(elementArg)
         }
-
+        return cancelButton
+    }
+    
+    createImageElement(elementArg) {
+        let imageElement = document.createElement("img")
+        imageElement.setAttribute("src", `images/${this._name}.jpg`)
+        
         imageElement.onclick = () => {
-            element.style = "background-color: #A1C935"
-            element.parentNode.removeChild(element)
-            document.getElementById("mainContainer").appendChild(element)
+            elementArg.style.backgroundColor = 'rgb(161, 201, 53)'
+            elementArg.parentNode.removeChild(elementArg)
+            document.getElementById("mainContainer").appendChild(elementArg)
         }
-                
-        element.appendChild(imageElement)
-        element.appendChild(cancelButton)
-        return element
+        return imageElement
     }
 }
