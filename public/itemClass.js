@@ -27,9 +27,16 @@ export class Item {
         imageElement.setAttribute("src", `images/${this._name}.jpg`)
         
         imageElement.onclick = () => {
-            elementArg.style.backgroundColor = 'rgb(161, 201, 53)'
+            let container = document.getElementById("mainContainer")
+            if (elementArg.style.backgroundColor === '') {
+                elementArg.style.backgroundColor = 'rgb(161, 201, 53)'
+                elementArg.parentNode.removeChild(elementArg)
+                container.appendChild(elementArg)
+                return
+            }
+            elementArg.style.backgroundColor = ''
             elementArg.parentNode.removeChild(elementArg)
-            document.getElementById("mainContainer").appendChild(elementArg)
+            container.insertBefore(elementArg, container.childNodes[0])
         }
         return imageElement
     }
