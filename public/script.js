@@ -24,16 +24,23 @@ recognition.addEventListener('result', event => {
   
   // check if the voice input has ended
   if (event.results[0].isFinal && itemsList.includes(transcript)) {
+    let elAlreadyExists = [... container.childNodes].filter(item => item.id === `id${transcript}`).length
+    if (elAlreadyExists) {
+      alert("Already in the list!")
+      return
+    }
+
     let newElement = new Item(transcript).createDivElement()
     if (newElement.style.backgroundColor === 'rgb(161, 201, 53)') {
       alert('Item is already taken!')
       return
     }
+
     if (container.hasChildNodes()) {
       container.insertBefore(newElement, container.childNodes[0])
       return
     }
+
       container.appendChild(newElement)
   }
-
 });
