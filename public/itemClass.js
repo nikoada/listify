@@ -18,9 +18,7 @@ export class Item {
         cancelButton.onclick = () => {
             elementArg.style.backgroundColor = ''
             elementArg.parentNode.removeChild(elementArg)
-            let aStoredList = localStorage.getItem('itemElements').split(',')
-            let aNewListForStorage = aStoredList.filter( item => item !== this._name && item !== `${this._name}-selected`)
-            localStorage.setItem('itemElements', aNewListForStorage)
+            this.deleteItemFromLocalStorage('itemElements', '-selected')
         }
 
 
@@ -33,23 +31,31 @@ export class Item {
         
         imageElement.onclick = () => {
             let container = document.getElementById("mainContainer")
-            let aStoredList = localStorage.getItem('itemElements').split(',')
             if (elementArg.style.backgroundColor === '') {
                 elementArg.style.backgroundColor = 'rgb(161, 201, 53)'
                 elementArg.parentNode.removeChild(elementArg)
                 container.appendChild(elementArg)
-                let itemIndex = aStoredList.indexOf(this._name)
-                aStoredList.splice(itemIndex, 1, `${this._name}-selected`)
-                localStorage.setItem('itemElements', aStoredList)
+                this.saveSelectedDeselectedItemInLocalStorage(this._name, true, 'itemElements')
                 return
             }
             elementArg.style.backgroundColor = ''
             elementArg.parentNode.removeChild(elementArg)
             container.insertBefore(elementArg, container.childNodes[0])
-            let itemIndex = aStoredList.indexOf(`${this._name}-selected`)
-            aStoredList.splice(itemIndex, 1, this._name)
-            localStorage.setItem('itemElements', aStoredList)
+            this.saveSelectedDeselectedItemInLocalStorage(this._name, false, 'itemElements')
         }
         return imageElement
+    }
+    
+    deleteItemFromLocalStorage(storageKey, sufix) {
+        let aStoredList = localStorage.getItem(storageKey).split(',')
+        let aNewListForStorage = aStoredList.filter( item => item !== this._name && item !== this._name + sufix)
+        localStorage.setItem(storageKey, aNewListForStorage)
+    }
+    
+    saveSelectedDeselectedItemInLocalStorage(itemName, selectBool, storageKey) {
+        let aStoredList = localStorage.getItem(storageKey).split(',')
+        let itemIndex = aStoredList.indexOf(selectBool ? itemName : `${itemName}-selected`)
+        aStoredList.splice(itemIndex, 1, selectBool ? `${itemName}-selected` : itemName)
+        localStorage.setItem(storageKey, aStoredList)
     }
 }

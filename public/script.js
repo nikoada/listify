@@ -18,7 +18,7 @@ startButton.style = 'width: 100%; height: 5rem; font-size: 2rem;'
 let container = document.getElementById("mainContainer")
 document.body.appendChild(startButton)
 
-let getLocalStorage = (lsKey, className, containerElement) => {
+let createElementsFromLocalStorage = (lsKey, className, containerElement) => {
   let savedUserList = localStorage.getItem(lsKey)
   let arrSavedList = savedUserList && savedUserList.split(',')
   arrSavedList && arrSavedList.forEach( item => {
@@ -39,7 +39,7 @@ let getLocalStorage = (lsKey, className, containerElement) => {
   })
 }
 
-getLocalStorage('itemElements', Item, container)
+createElementsFromLocalStorage('itemElements', Item, container)
 
 
 recognition.addEventListener('result', event => {
@@ -58,8 +58,7 @@ recognition.addEventListener('result', event => {
 
     let storedList = [] 
     if (localStorage.getItem('itemElements')) storedList = localStorage.getItem('itemElements').split(',')
-    storedList.push(transcript)
-    localStorage.setItem('itemElements', [... storedList])
+    localStorage.setItem('itemElements', [... storedList, transcript])
 
     if (container.hasChildNodes()) {
       container.insertBefore(newElement, container.childNodes[0])
