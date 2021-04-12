@@ -18,7 +18,12 @@ export class Item {
         cancelButton.onclick = () => {
             elementArg.style.backgroundColor = ''
             elementArg.parentNode.removeChild(elementArg)
+            let aStoredList = localStorage.getItem('itemElements').split(',')
+            let aNewListForStorage = aStoredList.filter( item => item !== this._name && item !== `${this._name}-selected`)
+            localStorage.setItem('itemElements', aNewListForStorage)
         }
+
+
         return cancelButton
     }
     
@@ -28,15 +33,22 @@ export class Item {
         
         imageElement.onclick = () => {
             let container = document.getElementById("mainContainer")
+            let aStoredList = localStorage.getItem('itemElements').split(',')
             if (elementArg.style.backgroundColor === '') {
                 elementArg.style.backgroundColor = 'rgb(161, 201, 53)'
                 elementArg.parentNode.removeChild(elementArg)
                 container.appendChild(elementArg)
+                let itemIndex = aStoredList.indexOf(this._name)
+                aStoredList.splice(itemIndex, 1, `${this._name}-selected`)
+                localStorage.setItem('itemElements', aStoredList)
                 return
             }
             elementArg.style.backgroundColor = ''
             elementArg.parentNode.removeChild(elementArg)
             container.insertBefore(elementArg, container.childNodes[0])
+            let itemIndex = aStoredList.indexOf(`${this._name}-selected`)
+            aStoredList.splice(itemIndex, 1, this._name)
+            localStorage.setItem('itemElements', aStoredList)
         }
         return imageElement
     }

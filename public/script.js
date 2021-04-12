@@ -20,8 +20,8 @@ document.body.appendChild(startButton)
 
 let getLocalStorage = (lsKey, className, containerElement) => {
   let savedUserList = localStorage.getItem(lsKey)
-  let arrSavedList = savedUserList.split(',')
-  arrSavedList.forEach( item => {
+  let arrSavedList = savedUserList && savedUserList.split(',')
+  arrSavedList && arrSavedList.forEach( item => {
     
     if (item.split('-')[1] === 'selected') {
       let newElement = new className(item.split('-')[0]).createDivElement()
@@ -55,7 +55,9 @@ recognition.addEventListener('result', event => {
     }
 
     let newElement = new Item(transcript).createDivElement()
-    let storedList = localStorage.getItem('itemElements').split(',')
+
+    let storedList = [] 
+    if (localStorage.getItem('itemElements')) storedList = localStorage.getItem('itemElements').split(',')
     storedList.push(transcript)
     localStorage.setItem('itemElements', [... storedList])
 
