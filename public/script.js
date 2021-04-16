@@ -8,15 +8,37 @@ const recognition = new SpeechRecognition()
 recognition.interimResults = true
 recognition.lang = 'en-US'
 
-const startButton = document.createElement('button')
-
-startButton.onclick = () =>  recognition.start()
-
-startButton.innerHTML = 'Add'
-startButton.style = 'width: 100%; height: 5rem; font-size: 2rem;'
-
 let container = document.getElementById("mainContainer")
-document.body.appendChild(startButton)
+
+const btnContainer = document.createElement('div')
+const startBtn = document.createElement('button')
+const deleteAllBtn = document.createElement('button')
+
+btnContainer.style = 'display: flex;'
+
+startBtn.onclick = () =>  recognition.start()
+startBtn.innerHTML = 'Add'
+startBtn.style = 'width: 85%; height: 5rem; font-size: 2rem;'
+
+deleteAllBtn.innerHTML = 'Del'
+deleteAllBtn.style = 'width: 15%; height: 5rem; font-size: 2rem; background-color: black; color: white;'
+deleteAllBtn.onclick = () =>  {
+  if (!container.hasChildNodes()) {
+    alert('There is nothing to delete!')
+    return
+  }
+  if (window.confirm('Do you want to delete the whole shoping list?')) {
+    container.innerHTML = ''
+    localStorage.clear()
+  }
+  // returning false prevents page for refreshing
+  return false
+}
+
+btnContainer.appendChild(startBtn)
+btnContainer.appendChild(deleteAllBtn)
+
+document.body.appendChild(btnContainer)
 
 let createElementsFromLocalStorage = (lsKey, className, containerElement) => {
   let savedUserList = localStorage.getItem(lsKey)
